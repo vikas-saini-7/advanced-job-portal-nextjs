@@ -1,10 +1,10 @@
+import Header from "@/components/common/Header";
+import Image from "next/image";
 
-
-export default async function Home() {
-  
+export default function Home() {
   return (
-    <div>
-      page
-    </div>
+    <main className="">
+      <Header />
+    </main>
   );
 }
