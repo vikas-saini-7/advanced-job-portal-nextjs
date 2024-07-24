@@ -16,12 +16,12 @@ const Hero = () => {
           <div>
             <input
               placeholder="Role"
-              className="h-12 outline-none border border-gray-500/50 bg-gray-500/50 px-4 rounded-s-xl"
+              className="h-12 outline-none border border-gray-500/30 bg-gray-500/10 px-4 rounded-s-xl"
               type="text"
             />
             <input
               placeholder="Location or Remote"
-              className="h-12 outline-none border border-gray-500/50 bg-gray-500/50 px-4"
+              className="h-12 outline-none border border-gray-500/30 bg-gray-500/10 px-4"
               type="text"
             />
             <Link href={"/browse"}>

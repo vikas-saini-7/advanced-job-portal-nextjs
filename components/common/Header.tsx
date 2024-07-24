@@ -9,13 +9,14 @@ const Header = () => {
           <Link href={"/"}>
             <h1 className="text-2xl font-bold text-primary">JOBBER</h1>
           </Link>
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-4 lg:gap-8">
             <Link href="/browse">Browse</Link>
             <Link href="/applications">Applications</Link>
+            <Link href="/messages">Messages</Link>
           </nav>
         </div>
         <button className="bg-primary py-2 px-6 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out">
-          Signup
+          Sign up
         </button>
       </div>
     </header>

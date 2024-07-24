@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filters from "@/components/browse/Filters";
+import Link from "next/link";
 
 const DATA = [
   {
@@ -94,22 +95,34 @@ const page = () => {
       setActiveJob(job);
     }
   };
+  useEffect(() => {
+    setActiveJob(DATA[0]);
+  }, []);
   return (
     <section className="container mx-auto">
       <Filters />
       <div className="h-[calc(100vh-120px)] grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[400px_1fr] gap-4">
+        {/* left side  */}
         <div className="pr-4 mb-4 border-r-2 border-gray-500/10 h-full overflow-auto">
           {/* card  */}
           {DATA.map((item) => (
             <div
               key={item.id}
-              className="border-2 border-gray-500/10 bg-gray-500/10 rounded-xl mb-4 p-4"
+              className={`${
+                activeJob?.id === item.id && "border-green-400"
+              } border-2 border-gray-500/10 bg-gray-500/10 rounded-xl mb-4 p-4`}
             >
-              <img
-                className="w-12 mb-2 rounded-xl"
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                alt=""
-              />
+              <div className="flex justify-between">
+                <div className="w-12 h-12 mb-2">
+                  <img
+                    className="w-12 rounded-xl"
+                    src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                    alt=""
+                  />
+                </div>
+                {/* <p className="text-xs mt-2 text-gray-500">posted Today</p> */}
+                <p className="text-xs mt-2 text-gray-500">12 July 2024</p>
+              </div>
               <h1 className="font-semibold text-xl mb-1">Frontend Developer</h1>
               <div className="flex gap-4 text-sm">
                 <p>{item.company.name}</p>
@@ -120,7 +133,7 @@ const page = () => {
                 )}
                 <p>{item.job_location}</p>
               </div>
-              <div className="flex items-center gap-2 mt-4">
+              <div className="flex items-center gap-2 mt-4 ">
                 <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
                   {item.job_type}
                 </p>
@@ -143,63 +156,97 @@ const page = () => {
             </div>
           ))}
         </div>
-        <div className="p-4 mb-4 border-2 border-gray-500/10 bg-gray-500/10 rounded-xl overflow-auto">
-          {!activeJob && (
-            <p className="text-center mt-8 text-gray-500">
-              Browse jobs by clicking View Details
-            </p>
-          )}
-          {activeJob && (
-            <div
-              key={activeJob.id}
-              className="border-2 border-gray-500/10 bg-gray-500/10 rounded-xl mb-4 p-4"
-            >
-              <img
-                className="w-12 mb-2 rounded-xl"
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                alt=""
-              />
-              <h1 className="font-semibold text-xl mb-1">Frontend Developer</h1>
-              <div className="flex gap-4 text-sm">
-                <p>{activeJob.company.name}</p>
-                {activeJob.job_work_type === "remote" ? (
-                  <p>Remote</p>
-                ) : (
-                  <p>{activeJob.job_work_type}</p>
-                )}
-                <p>{activeJob.job_location}</p>
-              </div>
-              <div className="flex activeJobs-center gap-2 mt-4">
-                <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
-                  {activeJob.job_type}
+
+        {/* right side  */}
+        <div className="pr-4 overflow-auto">
+          <div className="mb-4 p-4 border-2 border-gray-500/10 bg-gray-500/10 rounded-xl ">
+            {!activeJob && (
+              <p className="text-center mt-8 text-gray-500">
+                Browse jobs by clicking View Details
+              </p>
+            )}
+            {activeJob && (
+              <div key={activeJob.id}>
+                <div className="flex items-center justify-between">
+                  <img
+                    className="w-12 mb-2 rounded-xl"
+                    src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                    alt=""
+                  />
+                  <p className="text-primary text-sm">posted Today</p>
+                </div>
+                <h1 className="font-semibold text-xl mb-1">
+                  Frontend Developer
+                </h1>
+                <div className="flex gap-4 text-sm">
+                  <p>{activeJob.company.name}</p>
+                  {activeJob.job_work_type === "remote" ? (
+                    <p>Remote</p>
+                  ) : (
+                    <p>{activeJob.job_work_type}</p>
+                  )}
+                  <p>{activeJob.job_location}</p>
+                </div>
+                <div className="flex activeJobs-center gap-2 mt-4">
+                  <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
+                    {activeJob.job_type}
+                  </p>
+                  {activeJob.job_type === "Internship" ? (
+                    <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
+                      {activeJob.salary_per_month} per month
+                    </p>
+                  ) : (
+                    <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
+                      {activeJob.salary_per_year} per year
+                    </p>
+                  )}
+                </div>
+                {/* description */}
+                <h1 className="mt-4 text-xl font-bold">Description</h1>
+                <p className="text-gray-500">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+                  eligendi nobis corporis laboriosam ab quod nemo. Perferendis
+                  non quo necessitatibus qui, unde dolorum illum obcaecati
+                  cupiditate, excepturi doloribus officiis harum accusamus
+                  assumenda facere animi veritatis. Eveniet voluptatem quod
+                  maiores, minus pariatur dignissimos natus repellendus harum,
+                  necessitatibus alias consequuntur, facilis eos. Lorem ipsum
+                  dolor sit amet consectetur adipisicing elit. Earum explicabo
+                  repudiandae, sequi aspernatur consectetur perspiciatis quis
+                  animi fuga, facere illum itaque! Ipsam, ab possimus numquam,
+                  sequi quaerat temporibus reprehenderit vel soluta
+                  perspiciatis, fuga tempora ut sapiente a aut placeat rerum?
+                  Rem sint ab nisi dignissimos eos cum, ut sapiente, doloremque
+                  enim maiores veniam nam dicta obcaecati repudiandae?
                 </p>
-                {activeJob.job_type === "Internship" ? (
-                  <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
-                    {activeJob.salary_per_month} per month
-                  </p>
-                ) : (
-                  <p className="border-2 border-green-500/10 rounded-xl px-3 py-1">
-                    {activeJob.salary_per_year} per year
-                  </p>
-                )}
+
+                {/* Skills Required */}
+                <h1 className="mt-4 text-xl font-bold">Skills Required</h1>
+                <p className="text-gray-500">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+                  eligendi nobis corporis laboriosam ab quod nemo. Perferendis
+                  non quo necess.
+                </p>
+
+                {/* Perks & Benefits
+                 */}
+                <h1 className="mt-4 text-xl font-bold">Perks & Benefits</h1>
+                <p className="text-gray-500">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+                  eligendi nobis corporis laboriosam ab quod nemo. Perferendis
+                  non quo necess.
+                </p>
+                <Link href={`/apply/${activeJob.id}`}>
+                  <button
+                    onClick={() => handleViewDetails(activeJob.id)}
+                    className="bg-primary w-full mt-4 py-2 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out"
+                  >
+                    Preview & Apply
+                  </button>
+                </Link>
               </div>
-              <div className="mt-4 text-gray-500">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-                eligendi nobis corporis laboriosam ab quod nemo. Perferendis non
-                quo necessitatibus qui, unde dolorum illum obcaecati cupiditate,
-                excepturi doloribus officiis harum accusamus assumenda facere
-                animi veritatis. Eveniet voluptatem quod maiores, minus pariatur
-                dignissimos natus repellendus harum, necessitatibus alias
-                consequuntur, facilis eos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum explicabo repudiandae, sequi aspernatur consectetur perspiciatis quis animi fuga, facere illum itaque! Ipsam, ab possimus numquam, sequi quaerat temporibus reprehenderit vel soluta perspiciatis, fuga tempora ut sapiente a aut placeat rerum? Rem sint ab nisi dignissimos eos cum, ut sapiente, doloremque enim maiores veniam nam dicta obcaecati repudiandae dolorem! Laborum earum, ad voluptatum doloremque quo delectus aspernatur nobis. Ipsam nisi dolores earum, saepe ex perspiciatis! Sequi ratione amet quaerat commodi velit illum eius quidem?
-              </div>
-              <button
-                onClick={() => handleViewDetails(activeJob.id)}
-                className="bg-primary w-full mt-4 py-2 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out"
-              >
-                Apply
-              </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>
