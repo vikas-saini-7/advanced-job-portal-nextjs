@@ -67,3 +67,37 @@
     @apply bg-background text-foreground;
   }
 }
+body{
+  background-color: rgb(15, 17, 29);
+  color: rgb(255, 255, 255);
+}
+.text-primary {
+  /* color: rgb(225, 139, 33); */
+  color: rgb(16, 212, 111);
+  /* color: rgb(24, 183, 215); */
+}
+.bg-primary{
+  background-color: rgb(16, 212, 111);
+}
+
+
+/* custom scrollbar  */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f108; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #88888845; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
