@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 export interface IUser {
   name: string,
   email: string,
-  password: string
+  password: string,
+  role: string
 }
 
 const UserSchema = new mongoose.Schema({
@@ -19,7 +20,11 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-
+  },
+  // employer | job-seeker | admin
+  role: {
+    type: String,
+    required: true,
   }
 });
 

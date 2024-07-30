@@ -15,9 +15,18 @@ const Header = () => {
             <Link href="/messages">Messages</Link>
           </nav>
         </div>
-        <button className="bg-primary py-2 px-6 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out">
-          Sign up
-        </button>
+        <div className="">
+          <Link href={"/login"}>
+            <button className="mr-4 font-bold hover:text-green-400">
+              Log In
+            </button>
+          </Link>
+          <Link href={"/signup"}>
+            <button className="bg-primary py-2 px-6 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out">
+              Sign up
+            </button>
+          </Link>
+        </div>
       </div>
     </header>
   );
