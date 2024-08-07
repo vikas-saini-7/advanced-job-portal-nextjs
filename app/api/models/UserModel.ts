@@ -1,14 +1,14 @@
-// models/User.js
-import mongoose from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-export interface IUser {
-  name: string,
-  email: string,
-  password: string,
-  role: string
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: 'employer' | 'job-seeker' | 'admin';
 }
 
-const UserSchema = new mongoose.Schema({
+const UserSchema: Schema<IUser> = new Schema({
   name: {
     type: String,
     required: true,
@@ -20,17 +20,29 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: true,
   },
-  // employer | job-seeker | admin
   role: {
     type: String,
     required: true,
+    enum: ['employer', 'job-seeker', 'admin'],
+  }
+}, {
+  timestamps: true,
+});
+
+UserSchema.pre<IUser>('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err: any) {
+    next(err);
   }
 });
 
-// UserSchema.pre('save', () => {
-//   console.log('Im running before saving');
-
-// })
-
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+export default User;

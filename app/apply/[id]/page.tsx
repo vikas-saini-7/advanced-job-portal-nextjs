@@ -15,8 +15,9 @@ const page = () => {
         Preview Resume and Apply in this job.
       </h1>
       <div className="flex flex-col md:flex-row mt-8 gap-8">
-        <div className="w-1/2 min-h-[600px] bg-white rounded-2xl text-black p-4">
-          left
+        <div className="w-1/2 min-h-[600px] bg-gray-500/10 rounded-2xl text-black p-4 flex flex-col gap-4 items-center justify-center">
+          Upload your Resume
+          <button className="bg-primary w-full mt-4 py-2 rounded-xl text-black hover:bg-gray-500 transition-all ease-in-out">Upload</button>
         </div>
         <div className="w-1/2 max-w-[400px]">
           <h1 className="mb-8">

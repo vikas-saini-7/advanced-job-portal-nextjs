@@ -1,12 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface Company {
-  name: string;
-  image: string;
-}
-
 export interface IJob extends Document {
-  company: Company;
+  company: {
+    name: string;
+    image: string;
+  };
   job_title: string;
   job_type: string;
   job_work_type: string;
